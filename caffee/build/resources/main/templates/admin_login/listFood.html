@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<script>
+    function tvClick1() {
+        window.location.href = "adminSearchFoods?type=饮料"
+    }
+
+    function tvClick2() {
+        window.location.href = "adminSearchFoods?type=小吃"
+    }
+
+    function tvClick3() {
+        window.location.href = "adminSearchFoods?type=主食"
+    }
+</script>
+<h2>> 菜单管理</h2>
+<button id="btn1" onclick="tvClick1()">饮料</button>
+<button id="btn2" onclick="tvClick2()">小吃</button>
+<button id="btn3" onclick="tvClick3()">主食</button>
+<body>
+<table border="1" width="950">
+    <thead>
+    <caption style="font-size: 30px; font-family: Arial, Helvetica, sans-serif;">菜单信息显示</caption>
+    <tr>
+        <td>餐点图片</td>
+        <td>餐点名称</td>
+        <td>餐点类型</td>
+        <td>库存</td>
+        <td>价格</td>
+        <td>操作</td>
+    </tr>
+    </thead>
+    <tr th:each="item,eee: ${foods}">
+        <td><img th:src="@{'images/'+${item.picture}}" width="200th" height="200th"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.type}"></td>
+        <td th:text="${item.amount}"></td>
+        <td th:text="${item.price}"></td>
+        <td><a th:href="@{/deleteFood(food_name=${item.name})}" }><input type="submit" value="删除"><br></a></td>
+    </tr>
+</table>
+<br>
+<form action="/addFood" method="GET">
+    <div>
+        <input type="text" name="picture" placeholder="请输入图片名字">
+        <input type="text" name="food_name" placeholder="请输入要增加的餐点名称">
+        <input type="text" name="food_type" list="typelist" placeholder="请设置餐点类型">
+        <datalist id="typelist">
+            <option>饮料</option>
+            <option>小吃</option>
+            <option>主食</option>
+        </datalist>
+        <input type="text" name="food_amount" placeholder="请输入库存数量">
+        <input type="text" name="food_price" placeholder="请输入餐点价格">
+        <input type="submit" value="增加">
+    </div>
+</form>
+<br>
+<form action="/changeFood" method="GET">
+    <div>
+        <input type="text" name="picture" placeholder="请输入图片名字">
+        <input type="text" name="food_name" placeholder="请输入要修改的餐点名称">
+        <input type="text" name="food_type" list="typelist" placeholder="请设置餐点类型">
+        <input type="text" name="food_amount" placeholder="请输入修改后库存数量">
+        <input type="text" name="food_price" placeholder="请输入修改后餐点价格">
+        <input type="submit" value="修改"><br>
+    </div>
+</form>
+</body>
+</html>
+</html>
+
+
+
+
+
+
+
+
